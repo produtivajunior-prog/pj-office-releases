@@ -237,6 +237,52 @@ h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -.03e
 .note svg.i { width: 18px; height: 18px; color: #C98A0B; margin-top: 1px; }
 @media (max-width: 900px) { .install { grid-template-columns: 1fr; gap: 24px; } }
 
+/* guia do Windows: abre ao clicar em Baixar para Windows */
+.wg { width: min(560px, calc(100vw - 32px)); max-height: calc(100dvh - 32px); padding: 0; border: 1px solid var(--line); border-radius: var(--r-xl);
+      background: var(--panel); color: var(--ink); box-shadow: var(--shadow-3); overflow: auto; }
+.wg::backdrop { background: rgb(16 14 24 / .45); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+.wg[open] { animation: wg-in .35s var(--ease); }
+@keyframes wg-in { from { opacity: 0; transform: translateY(12px) scale(.98); } }
+.wg-in { padding: 28px 28px 24px; }
+.wg-x { position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; border-radius: 50%; border: 0; background: var(--soft); color: var(--ink);
+        display: grid; place-items: center; cursor: pointer; }
+.wg-x svg.i { width: 18px; height: 18px; }
+.wg-ok { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--ok); background: rgb(46 173 107 / .12);
+         padding: 5px 11px; border-radius: 999px; }
+.wg-ok svg.i { width: 15px; height: 15px; }
+.wg h2 { margin: 12px 0 6px; font-size: 22px; letter-spacing: -.02em; padding-right: 36px; }
+.wg-sub { margin: 0 0 20px; color: var(--muted); font-size: 15px; }
+.wg-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; counter-reset: w; }
+.wg-steps > li { counter-increment: w; display: grid; grid-template-columns: 30px 1fr; gap: 12px; }
+.wg-steps > li::before { content: counter(w); width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center;
+                         background: var(--soft); color: var(--accent-text); font-weight: 800; font-size: 14px; }
+.wg-steps h3 { margin: 4px 0 2px; font-size: 15.5px; }
+.wg-steps p { margin: 0; color: var(--muted); font-size: 14.5px; }
+.wg-steps b { color: var(--ink); }
+/* miniaturas dos avisos, com o botão certo destacado */
+.mock { margin-top: 10px; border-radius: 10px; border: 1px solid var(--line-strong); overflow: hidden; font-family: "Segoe UI", var(--font); font-size: 12.5px; line-height: 1.4; }
+.mock .hl { outline: 2px solid #F5B400; outline-offset: 2px; border-radius: 4px; box-shadow: 0 0 0 6px rgb(245 180 0 / .25); }
+.mock-ss { background: #0C5BA8; color: #fff; padding: 14px 16px; }
+.mock-ss strong { display: block; font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+.mock-ss u { text-decoration: underline; }
+.mock-ss .row { display: flex; justify-content: flex-end; gap: 8px; margin-top: 12px; }
+.mock-ss .row span { border: 1px solid rgb(255 255 255 / .8); padding: 4px 12px; }
+.mock-dl { background: var(--bg); color: var(--ink); padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
+.mock-dl .f { flex: 1; min-width: 0; }
+.mock-dl .f small { display: block; color: #B26A00; }
+:root[data-theme="dark"] .mock-dl .f small { color: #F2B04A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .mock-dl .f small { color: #F2B04A; } }
+.mock-dl .k { white-space: nowrap; font-weight: 600; padding: 4px 10px; background: var(--panel); border: 1px solid var(--line-strong); border-radius: 6px; }
+.wg-why { display: grid; grid-template-columns: 20px 1fr; gap: 10px; margin: 18px 0 0; padding: 12px 14px; border-radius: 12px; background: var(--chip);
+          border: 1px solid var(--line); font-size: 13.5px; color: var(--muted); }
+.wg-why svg.i { width: 18px; height: 18px; color: var(--accent-text); margin-top: 1px; }
+.wg-why b { color: var(--ink); }
+.wg-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
+.wg-foot a { font-size: 14px; color: var(--accent-text); font-weight: 600; }
+.wg-foot button { border: 0; font: inherit; font-weight: 700; font-size: 15px; padding: 11px 22px; border-radius: 999px; background: var(--accent); color: var(--on-accent); cursor: pointer; }
+@media (max-width: 560px) { .wg-in { padding: 22px 18px 18px; } .wg h2 { font-size: 19px; } }
+@media (prefers-reduced-motion: reduce) { .wg[open] { animation: none; } }
+
 /* faq */
 .faq { max-width: 760px; margin: 0 auto; display: grid; gap: 10px; }
 details { border-radius: var(--r-lg); background: var(--panel); border: 1px solid var(--line); transition: box-shadow .2s; }
@@ -303,6 +349,7 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4M12 17h.01"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
   <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
   <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
 </svg>
 
@@ -449,11 +496,12 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
         </div>
         <div role="tabpanel" id="panel-win" aria-labelledby="tab-win" hidden>
           <ol class="steps">
-            <li><div><h4>Baixe o instalador .exe</h4><p>Clique em <b>Baixar para Windows</b> no topo desta página.</p></div></li>
-            <li><div><h4>Execute o instalador</h4><p>Dê dois cliques no arquivo baixado. Se o Windows SmartScreen aparecer, clique em <b>Mais informações → Executar assim mesmo</b>.</p></div></li>
+            <li><div><h4>Baixe o instalador .exe</h4><p>Clique em <b>Baixar para Windows</b> no topo desta página. Se o navegador disser que o arquivo <b>não é baixado com frequência</b>, escolha <b>Manter</b>: no Edge, <b>⋯ → Manter → Mostrar mais → Manter mesmo assim</b>; no Chrome, abra os downloads (seta ↓ no canto de cima) e clique em <b>Manter</b> ou <b>Baixar arquivo suspeito</b>.</p></div></li>
+            <li><div><h4>Execute o instalador</h4><p>Dê dois cliques no arquivo baixado. Na tela azul <b>O Windows protegeu o computador</b>, clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.</p></div></li>
             <li><div><h4>Prepare o computador</h4><p>Na primeira abertura, a tela <b>Vamos preparar o seu PC</b> confere o que falta: o <b>Claude Code</b> e o <b>Git para Windows</b> (o Claude Code usa o Git Bash para rodar comandos). Cada botão <b>Instalar</b> abre o instalador oficial no PowerShell; depois clique em <b>Entrar</b> para fazer login no Claude.</p></div></li>
             <li><div><h4>Escolha seu escritório</h4><p>Abra o PJ Office pelo Menu Iniciar ou pelo atalho na Área de Trabalho, siga o tour e faça seu primeiro pedido. Ao fechar a janela, o escritório continua rodando no ícone perto do relógio.</p></div></li>
           </ol>
+          <p class="note"><svg class="i"><use href="#i-alert"/></svg><span>Os avisos dos passos 1 e 2 aparecem com todo programa novo que ainda não foi baixado por muita gente — não quer dizer que haja vírus. O instalador vem direto do GitHub oficial do PJ Office. Você só passa por eles na primeira instalação: as próximas versões se atualizam sozinhas, sem aviso.</span></p>
         </div>
       </div>
     </div>
@@ -470,6 +518,7 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
         <details><summary>O PJ Office é pago?</summary><p>O app é gratuito. A inteligência vem do Claude Code instalado no seu computador, então o uso conta no seu plano do Claude, como se você mesmo estivesse usando o Claude Code.</p></details>
         <details><summary>Meus dados vão para algum servidor do PJ Office?</summary><p>Não. Escritórios, tarefas, conversas e o Cérebro ficam numa pasta do seu computador. Os pedidos vão direto do seu Claude Code para a Anthropic, com o seu login, como em qualquer uso do Claude.</p></details>
         <details><summary>Os agentes podem mandar e-mail ou publicar algo sozinhos?</summary><p>Não sem você. Toda tarefa que envia, publica, paga ou apaga para em <b>Aprovar</b> com um rascunho, e só segue depois do seu OK.</p></details>
+        <details><summary>O navegador ou o Windows dizem que o arquivo pode ser perigoso. É vírus?</summary><p>Não. O Windows e os navegadores avisam sobre <b>todo programa novo</b> que ainda não foi baixado por muita gente, e o PJ Office acabou de ser lançado. O instalador vem direto do <a href="https://github.com/produtivajunior-prog/pj-office-releases/releases" target="_blank" rel="noopener">GitHub oficial do PJ Office</a>. Para instalar: no navegador, escolha <b>Manter</b> (no Edge: <b>⋯ → Manter → Mostrar mais → Manter mesmo assim</b>); ao abrir, clique em <b>Mais informações → Executar assim mesmo</b>. Depois disso o app se atualiza sozinho, sem avisos.</p></details>
         <details><summary>Funciona em Mac com processador Intel?</summary><p>Esta versão é para Macs com chip Apple (M1, M2, M3, M4 e mais novos).</p></details>
         <details><summary>Preciso saber programar?</summary><p>Não. Você conversa com o escritório em português. Os recursos de código, terminal e GitHub estão lá para quem quiser, mas são opcionais.</p></details>
         <details><summary>Fechar a janela para o trabalho?</summary><p>Não. Rotinas e tarefas continuam rodando em segundo plano, e você recebe uma notificação quando algo fica pronto ou precisa de aprovação.</p></details>
@@ -496,6 +545,24 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
     <span>Versão <span data-version>1.0.0</span> · © <span id="year">2026</span> PJ Office</span>
   </div>
 </footer>
+
+<dialog class="wg" id="winGuide" aria-labelledby="wgTitle">
+  <div class="wg-in">
+    <button class="wg-x" type="button" data-close aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <span class="wg-ok"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Seu download começou</span>
+    <h2 id="wgTitle">Dois avisos podem aparecer — é normal</h2>
+    <p class="wg-sub">O PJ Office é novo, então o navegador e o Windows ainda não o conhecem. Siga estes passos uma vez:</p>
+    <ol class="wg-steps">
+      <li><div><h3 data-wg-browser-title>Mantenha o arquivo no navegador</h3><p data-wg-browser>Se aparecer <b>“não é baixado com frequência”</b>, escolha <b>Manter</b>.</p>
+        <div class="mock mock-dl" aria-hidden="true"><span class="f">PJ-Office-Setup-x64.exe<small>não é baixado com frequência</small></span><span class="k hl" data-wg-keep>Manter</span></div></div></li>
+      <li><div><h3>Abra o instalador</h3><p>Na tela azul, clique em <b>Mais informações</b> e depois em <b>Executar assim mesmo</b>.</p>
+        <div class="mock mock-ss" aria-hidden="true"><strong>O Windows protegeu o computador</strong>O Microsoft Defender SmartScreen impediu que um aplicativo desconhecido fosse iniciado…<br><u class="hl">Mais informações</u><div class="row"><span class="hl">Executar assim mesmo</span><span>Não executar</span></div></div></div></li>
+      <li><div><h3>Siga o instalador</h3><p>Pronto. Daqui para a frente o PJ Office <b>se atualiza sozinho</b>, sem esses avisos.</p></div></li>
+    </ol>
+    <p class="wg-why"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg><span><b>Por que o aviso?</b> O Windows avisa sobre todo programa que ainda não foi baixado por muita gente. O arquivo vem direto do GitHub oficial do PJ Office.</span></p>
+    <div class="wg-foot"><a href="#instalar" data-close>Ver o passo a passo completo</a><button type="button" data-close>Entendi</button></div>
+  </div>
+</dialog>
 
 <script>
 /* ===================== CONFIGURAÇÃO DOS DOWNLOADS =====================
@@ -545,6 +612,7 @@ const DOWNLOADS = {
     if (ready) {
       a.href = d.url;
       a.setAttribute('download', '');
+      if (key === 'windows') a.addEventListener('click', () => setTimeout(openWinGuide, 350)); // o download segue; o guia explica os avisos
     } else {
       a.setAttribute('aria-disabled', 'true');
       a.setAttribute('role', 'link');
@@ -569,6 +637,28 @@ const DOWNLOADS = {
     else { p.classList.add('warn'); p.innerHTML = icon('i-alert') + '<span>Ainda não há versão para o seu sistema. O PJ Office roda em <b>macOS</b> e <b>Windows</b>.</span>'; }
     return p;
   }
+  /* ---------- guia do Windows: os avisos de "programa desconhecido" do navegador e do SmartScreen ---------- */
+  const guide = document.getElementById('winGuide');
+  const BROWSER = /Edg\//.test(ua) ? 'edge' : /Firefox\//.test(ua) ? 'firefox' : /OPR\//.test(ua) ? 'other' : /Chrome\//.test(ua) ? 'chrome' : 'other';
+  const keepText = {
+    edge: 'Se o Edge disser que o arquivo <b>“não é baixado com frequência”</b>, passe o mouse sobre ele e clique em <b>⋯ → Manter</b>. Na janela seguinte: <b>Mostrar mais → Manter mesmo assim</b>.',
+    chrome: 'Se o Chrome avisar que o arquivo <b>“não costuma ser baixado”</b>, clique no ícone de downloads (seta ↓ no canto de cima) e escolha <b>Manter</b> — em algumas versões o botão se chama <b>Baixar arquivo suspeito</b>.',
+    firefox: 'Se o Firefox mostrar um aviso no painel de downloads, clique no arquivo e escolha <b>Permitir download</b>.',
+    other: 'Se o navegador avisar que o arquivo é pouco baixado ou pode ser perigoso, escolha <b>Manter</b>.',
+  }[BROWSER];
+  guide.querySelector('[data-wg-browser]').innerHTML = keepText;
+  guide.querySelector('.mock-dl .f').firstChild.textContent = decodeURIComponent(DOWNLOADS.windows.url.split('/').pop() || 'PJ-Office-Setup-x64.exe');
+  if (BROWSER === 'edge') guide.querySelector('[data-wg-keep]').textContent = '⋯  Manter';
+  if (BROWSER === 'firefox') guide.querySelector('[data-wg-keep]').textContent = 'Permitir download';
+  function openWinGuide() {
+    if (guide.open) return;
+    if (typeof guide.showModal === 'function') guide.showModal(); else guide.setAttribute('open', '');
+    guide.scrollTop = 0;
+  }
+  guide.addEventListener('click', e => {
+    if (e.target === guide || e.target.closest('[data-close]')) guide.close ? guide.close() : guide.removeAttribute('open');
+  });
+
   document.querySelectorAll('[data-downloads]').forEach(box => {
     const order = preferred === 'windows' ? ['windows', 'mac'] : ['mac', 'windows'];
     order.forEach(k => box.appendChild(button(k)));
