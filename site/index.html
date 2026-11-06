@@ -280,6 +280,27 @@ h2 { font-size: clamp(30px, 4vw, 44px); line-height: 1.08; letter-spacing: -.03e
 .wg-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 18px; }
 .wg-foot a { font-size: 14px; color: var(--accent-text); font-weight: 600; }
 .wg-foot button { border: 0; font: inherit; font-weight: 700; font-size: 15px; padding: 11px 22px; border-radius: 999px; background: var(--accent); color: var(--on-accent); cursor: pointer; }
+/* guia do Mac: janela do .dmg e barra lateral do Finder */
+.mock-dmg { background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, var(--font); }
+.mock-dmg .bar { display: flex; align-items: center; gap: 6px; padding: 7px 10px; border-bottom: 1px solid var(--line); font-size: 12px; color: var(--muted); }
+.mock-dmg .bar i { width: 9px; height: 9px; border-radius: 50%; background: var(--line-strong); }
+.mock-dmg .bar span { flex: 1; text-align: center; margin-right: 33px; font-weight: 600; }
+.mock-dmg .row { display: flex; align-items: center; justify-content: center; gap: 18px; padding: 16px 12px 14px; }
+.mock-dmg figure { margin: 0; display: grid; justify-items: center; gap: 4px; font-size: 12px; padding: 6px 8px; }
+.mock-dmg figure img, .mock-dmg .fold { width: 44px; height: 44px; }
+.mock-dmg .fold { border-radius: 8px; background: linear-gradient(#7FC4F5, #3D96E0); display: grid; place-items: center; color: #fff; font-weight: 800; font-size: 20px; }
+.mock-dmg .go { width: 40px; height: 2px; background: var(--accent); position: relative; }
+.mock-dmg .go::after { content: ""; position: absolute; right: -2px; top: -4px; border: 5px solid transparent; border-left-color: var(--accent); border-right: 0; }
+.mock-side { background: var(--bg); color: var(--ink); padding: 10px 12px; font-family: -apple-system, BlinkMacSystemFont, var(--font); display: grid; gap: 6px; }
+.mock-side small { color: var(--muted); font-weight: 600; font-size: 11px; }
+.mock-side .vol { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.mock-side .ej { font-size: 13px; padding: 0 5px; }
+.wg-warn { display: grid; grid-template-columns: 20px 1fr; gap: 10px; margin: 18px 0 0; padding: 12px 14px; border-radius: 12px;
+  background: rgb(245 180 0 / .12); color: var(--muted); font-size: 14px; }
+.wg-warn svg.i { width: 18px; height: 18px; color: #B26A00; margin-top: 1px; }
+:root[data-theme="dark"] .wg-warn svg.i { color: #F2B04A; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .wg-warn svg.i { color: #F2B04A; } }
+.wg-warn b { color: var(--ink); }
 @media (max-width: 560px) { .wg-in { padding: 22px 18px 18px; } .wg h2 { font-size: 19px; } }
 @media (prefers-reduced-motion: reduce) { .wg[open] { animation: none; } }
 
@@ -489,8 +510,8 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
         <div role="tabpanel" id="panel-mac" aria-labelledby="tab-mac">
           <ol class="steps">
             <li><div><h4>Baixe o arquivo .dmg</h4><p>Clique em <b>Baixar para macOS</b> no topo desta página.</p></div></li>
-            <li><div><h4>Arraste para Aplicativos</h4><p>Abra o arquivo baixado e arraste o ícone do <b>PJ Office</b> para a pasta <b>Aplicativos</b>.</p></div></li>
-            <li><div><h4>Libere a primeira abertura</h4><p>Abra o app. Se o macOS avisar que não pode verificar o desenvolvedor, vá em <b>Ajustes do Sistema → Privacidade e Segurança</b>, role até o aviso do PJ Office e clique em <b>Abrir Mesmo Assim</b>. Só é preciso fazer isso uma vez.</p></div></li>
+            <li><div><h4>Arraste para Aplicativos</h4><p>Abra o arquivo baixado e arraste o ícone do <b>PJ Office</b> para a pasta <b>Aplicativos</b>. Depois ejete o disco (⏏ na barra lateral do Finder). <b>Não abra o app pela janela do .dmg</b>: de lá ele não se atualiza.</p></div></li>
+            <li><div><h4>Libere a primeira abertura</h4><p>Abra o app pela pasta <b>Aplicativos</b> ou pelo Launchpad. Se o macOS avisar que não pode verificar o desenvolvedor, vá em <b>Ajustes do Sistema → Privacidade e Segurança</b>, role até o aviso do PJ Office e clique em <b>Abrir Mesmo Assim</b>. Só é preciso fazer isso uma vez.</p></div></li>
             <li><div><h4>Escolha seu escritório</h4><p>O tour guiado mostra o básico. Escreva seu primeiro pedido na barra e veja o time trabalhar.</p></div></li>
           </ol>
         </div>
@@ -564,6 +585,26 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
   </div>
 </dialog>
 
+<dialog class="wg" id="macGuide" aria-labelledby="mgTitle">
+  <div class="wg-in">
+    <button class="wg-x" type="button" data-close aria-label="Fechar"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+    <span class="wg-ok"><svg class="i" aria-hidden="true"><use href="#i-download"/></svg>Seu download começou</span>
+    <h2 id="mgTitle">Instale na pasta Aplicativos</h2>
+    <p class="wg-sub">Assim o PJ Office fica instalado de vez e se atualiza sozinho. Leva menos de um minuto:</p>
+    <ol class="wg-steps">
+      <li><div><h3>Abra o arquivo baixado</h3><p>Dê dois cliques em <b data-mg-file>PJ-Office.dmg</b>, na pasta Downloads. Abre uma janela com o PJ Office e a pasta Aplicativos.</p></div></li>
+      <li><div><h3>Arraste para Aplicativos</h3><p>Arraste o ícone do <b>PJ Office</b> até a pasta <b>Aplicativos</b> e espere a cópia terminar.</p>
+        <div class="mock mock-dmg" aria-hidden="true"><div class="bar"><i></i><i></i><i></i><span>PJ Office</span></div>
+          <div class="row"><figure class="hl"><img src="assets/icon.png" alt="">PJ Office</figure><span class="go"></span><figure><span class="fold">A</span>Aplicativos</figure></div></div></div></li>
+      <li><div><h3>Ejete o disco</h3><p>Na barra lateral do Finder, clique no <b>⏏</b> ao lado de “PJ Office”. Depois pode apagar o arquivo .dmg.</p>
+        <div class="mock mock-side" aria-hidden="true"><small>Locais</small><div class="vol"><span>PJ Office</span><span class="ej hl">⏏</span></div></div></div></li>
+      <li><div><h3>Abra pela pasta Aplicativos</h3><p>Abra o PJ Office pela pasta <b>Aplicativos</b> ou pelo Launchpad. Se o macOS disser que não pode verificar o desenvolvedor, vá em <b>Ajustes do Sistema → Privacidade e Segurança</b> e clique em <b>Abrir Mesmo Assim</b> (só na primeira vez).</p></div></li>
+    </ol>
+    <p class="wg-warn"><svg class="i" aria-hidden="true"><use href="#i-alert"/></svg><span><b>Não abra o app pela janela do .dmg.</b> O .dmg é só o “pacote” de entrega: aberto de lá, o PJ Office some quando o disco é ejetado e não consegue se atualizar.</span></p>
+    <div class="wg-foot"><a href="#instalar" data-close>Ver o passo a passo completo</a><button type="button" data-close>Entendi</button></div>
+  </div>
+</dialog>
+
 <script>
 /* ===================== CONFIGURAÇÃO DOS DOWNLOADS =====================
    Troque os links abaixo quando subir uma versão nova.
@@ -572,14 +613,14 @@ footer .brand img { width: 24px; height: 24px; border-radius: 6px; }
    - url vazio ("") = o botão aparece como "Em breve", sem link quebrado.
    ===================================================================== */
 const DOWNLOADS = {
-  version: '1.0.10',
+  version: '1.0.11',
   mac: {
-    url: 'https://github.com/produtivajunior-prog/pj-office-releases/releases/download/v1.0.10/PJ-Office-1.0.10-arm64.dmg',
+    url: 'https://github.com/produtivajunior-prog/pj-office-releases/releases/download/v1.0.11/PJ-Office-1.0.11-arm64.dmg',
     label: 'macOS',
     detail: 'Apple Silicon · .dmg · 118 MB',
   },
   windows: {
-    url: 'https://github.com/produtivajunior-prog/pj-office-releases/releases/download/v1.0.10/PJ-Office-1.0.10-Setup-x64.exe',
+    url: 'https://github.com/produtivajunior-prog/pj-office-releases/releases/download/v1.0.11/PJ-Office-1.0.11-Setup-x64.exe',
     label: 'Windows',
     detail: 'Windows 10/11 64 bits · .exe · 114 MB',
   },
@@ -612,7 +653,8 @@ const DOWNLOADS = {
     if (ready) {
       a.href = d.url;
       a.setAttribute('download', '');
-      if (key === 'windows') a.addEventListener('click', () => setTimeout(openWinGuide, 350)); // o download segue; o guia explica os avisos
+      if (key === 'windows') a.addEventListener('click', () => setTimeout(() => openGuide(guide), 350)); // o download segue; o guia explica os avisos
+      if (key === 'mac') a.addEventListener('click', () => setTimeout(() => openGuide(macGuide), 350)); // e no Mac, como instalar na pasta Aplicativos
     } else {
       a.setAttribute('aria-disabled', 'true');
       a.setAttribute('role', 'link');
@@ -650,14 +692,17 @@ const DOWNLOADS = {
   guide.querySelector('.mock-dl .f').firstChild.textContent = decodeURIComponent(DOWNLOADS.windows.url.split('/').pop() || 'PJ-Office-Setup-x64.exe');
   if (BROWSER === 'edge') guide.querySelector('[data-wg-keep]').textContent = '⋯  Manter';
   if (BROWSER === 'firefox') guide.querySelector('[data-wg-keep]').textContent = 'Permitir download';
-  function openWinGuide() {
-    if (guide.open) return;
-    if (typeof guide.showModal === 'function') guide.showModal(); else guide.setAttribute('open', '');
-    guide.scrollTop = 0;
+  /* ---------- guia do Mac: arrastar para Aplicativos (abrir de dentro do .dmg impede as atualizações) ---------- */
+  const macGuide = document.getElementById('macGuide');
+  macGuide.querySelector('[data-mg-file]').textContent = decodeURIComponent(DOWNLOADS.mac.url.split('/').pop() || 'PJ-Office.dmg');
+  function openGuide(g) {
+    if (g.open) return;
+    if (typeof g.showModal === 'function') g.showModal(); else g.setAttribute('open', '');
+    g.scrollTop = 0;
   }
-  guide.addEventListener('click', e => {
-    if (e.target === guide || e.target.closest('[data-close]')) guide.close ? guide.close() : guide.removeAttribute('open');
-  });
+  [guide, macGuide].forEach(g => g.addEventListener('click', e => {
+    if (e.target === g || e.target.closest('[data-close]')) g.close ? g.close() : g.removeAttribute('open');
+  }));
 
   document.querySelectorAll('[data-downloads]').forEach(box => {
     const order = preferred === 'windows' ? ['windows', 'mac'] : ['mac', 'windows'];
